@@ -29,7 +29,7 @@ export const incentivesConfigurationSchema = T.Object({
      * If set to true, the plugin runs even if the price label is missing, and will evaluate comments.
      */
     requirePriceLabel: T.Boolean({ default: true }),
-    contentEvaluator: T.Optional(contentEvaluatorConfigurationType),
+    contentEvaluator: T.Optional(T.Union([contentEvaluatorConfigurationType, T.Null()])),
     userExtractor: T.Optional(userExtractorConfigurationType),
     dataPurge: T.Optional(dataPurgeConfigurationType),
     formattingEvaluator: T.Optional(formattingEvaluatorConfigurationType),
