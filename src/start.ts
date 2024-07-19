@@ -65,7 +65,7 @@ export async function getRepo(params: IssueParams): Promise<GitHubRepository> {
 
 export async function getIssue(params: IssueParams): Promise<GitHubIssue> {
   const octokit = getOctokitInstance();
-  // throw new Error("some error");
+  throw new Error("some error");
   return (await octokit.issues.get(params)).data;
 }
 
