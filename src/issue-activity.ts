@@ -43,7 +43,9 @@ export class IssueActivity {
       maxTry: this._configuration.maxAttempts,
       async onError(error) {
         try {
-          const content = "Failed to retrieve activity. Retrying...";
+          const content = `Failed to retrieve activity. Retrying...
+
+${error}`;
           const message = logger.error(content, { error });
           await githubCommentModuleInstance.postComment(message?.logMessage.diff || content);
         } catch (e) {
