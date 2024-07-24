@@ -59,9 +59,13 @@ export class FormattingEvaluatorModule implements Module {
         const multiplierFactor = this._multipliers?.[comment.type] ?? { wordValue: 0, formattingMultiplier: 0 };
         const formattingTotal = formatting
           ? Object.values(formatting).reduce((acc, curr) => {
-              let sum = new Decimal(curr.score).mul(multiplierFactor.formattingMultiplier);
+              let sum = new Decimal(curr.score);
               for (const symbol of Object.keys(curr.symbols)) {
-                sum = sum.mul(curr.symbols[symbol].count).mul(curr.symbols[symbol].multiplier);
+                sum = sum.add(
+                  new Decimal(curr.symbols[symbol].count)
+                    .mul(curr.symbols[symbol].multiplier)
+                    .mul(multiplierFactor.formattingMultiplier)
+                );
               }
               return acc.add(sum);
             }, new Decimal(0))
@@ -100,7 +104,6 @@ export class FormattingEvaluatorModule implements Module {
 
   _countWords(symbols: FormattingEvaluatorConfiguration["multipliers"][0]["symbols"], text: string) {
     const counts: { [p: string]: { count: number; multiplier: number } } = {};
-    console.log("evaluating", text, symbols);
     for (const [regex, multiplier] of Object.entries(symbols)) {
       const match = text.trim().match(new RegExp(regex, "g"));
       counts[regex] = {
