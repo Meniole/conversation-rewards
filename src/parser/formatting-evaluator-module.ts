@@ -100,6 +100,7 @@ export class FormattingEvaluatorModule implements Module {
 
   _countWords(symbols: FormattingEvaluatorConfiguration["multipliers"][0]["symbols"], text: string) {
     const counts: { [p: string]: { count: number; multiplier: number } } = {};
+    console.log("evaluating", text, symbols);
     for (const [regex, multiplier] of Object.entries(symbols)) {
       const match = text.trim().match(new RegExp(regex, "g"));
       counts[regex] = {
