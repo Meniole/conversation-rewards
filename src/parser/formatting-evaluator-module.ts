@@ -59,12 +59,13 @@ export class FormattingEvaluatorModule implements Module {
         const multiplierFactor = this._multipliers?.[comment.type] ?? { wordValue: 0, formattingMultiplier: 0 };
         const formattingTotal = formatting
           ? Object.values(formatting).reduce((acc, curr) => {
-              let sum = new Decimal(curr.score);
+              let sum = new Decimal(0);
               for (const symbol of Object.keys(curr.symbols)) {
                 sum = sum.add(
                   new Decimal(curr.symbols[symbol].count)
                     .mul(curr.symbols[symbol].multiplier)
                     .mul(multiplierFactor.formattingMultiplier)
+                    .mul(curr.score)
                 );
               }
               return acc.add(sum);
