@@ -18,6 +18,9 @@ export async function run() {
     const issue = parseGitHubUrl(eventPayload.issue.html_url);
     const activity = new IssueActivity(issue);
     await activity.init();
+    if (!configuration.incentives) {
+      return logger.info("No incentives modules are enabled, nothing to do.")?.logMessage.raw;
+    }
     if (configuration.incentives.requirePriceLabel && !getSortedPrices(activity.self?.labels).length) {
       const result = logger.error("No price label has been set. Skipping permit generation.");
       await githubCommentModuleInstance.postComment(result?.logMessage.diff || "");
