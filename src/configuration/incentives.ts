@@ -35,11 +35,11 @@ export const incentivesConfigurationSchema = T.Object(
              */
             requirePriceLabel: T.Boolean({ default: true }),
             contentEvaluator: T.Union([contentEvaluatorConfigurationType, T.Null()], { default: null }),
-            userExtractor: T.Union([userExtractorConfigurationType, T.Null()], { default: null }),
+            userExtractor: T.Optional(T.Union([userExtractorConfigurationType, T.Null()], { default: null })),
             dataPurge: T.Union([dataPurgeConfigurationType, T.Null()], { default: null }),
             formattingEvaluator: T.Union([formattingEvaluatorConfigurationType, T.Null()], { default: null }),
             permitGeneration: T.Union([permitGenerationConfigurationType, T.Null()], { default: null }),
-            githubComment: T.Union([githubCommentConfigurationType, T.Null()], { default: null }),
+            githubComment: T.Optional(T.Union([githubCommentConfigurationType, T.Null()], { default: null })),
           },
           { default: {} }
         ),
