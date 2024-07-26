@@ -6,16 +6,19 @@ import { GitHubIssue } from "../github-types";
 import { getSortedPrices } from "../helpers/label-price-extractor";
 import { IssueActivity } from "../issue-activity";
 import { Module, Result } from "./processor";
+import logger from "../helpers/logger";
 
 /**
  * Creates entries for each user with its associated comments.
  */
 export class UserExtractorModule implements Module {
-  private readonly _configuration: UserExtractorConfiguration | null = configuration.incentives.userExtractor;
+  private readonly _configuration: UserExtractorConfiguration | null | undefined =
+    configuration.incentives?.userExtractor;
 
   get enabled(): boolean {
+    console.log("user extractor module", JSON.stringify(this._configuration, null, 2));
     if (!Value.Check(userExtractorConfigurationType, this._configuration)) {
-      console.warn("Invalid configuration detected for UserExtractorModule, disabling.");
+      logger.error("Invalid configuration detected for UserExtractorModule, disabling.");
       return false;
     }
     return true;
