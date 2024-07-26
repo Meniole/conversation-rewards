@@ -59,7 +59,11 @@ export class GithubCommentModule implements Module {
   }
 
   get enabled(): boolean {
-    console.log("Github comment module", JSON.stringify(this._configuration, null, 2));
+    console.log(
+      "Github comment module 2",
+      JSON.stringify(this._configuration, null, 2),
+      JSON.stringify(configuration.incentives, null, 2)
+    );
     if (!Value.Check(githubCommentConfigurationType, this._configuration)) {
       logger.error("Invalid configuration detected for GithubContentModule, disabling.");
       return false;
