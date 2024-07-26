@@ -15,6 +15,13 @@ export class UserExtractorModule implements Module {
   private readonly _configuration: UserExtractorConfiguration | null | undefined =
     configuration.incentives?.userExtractor;
 
+  constructor() {
+    if (this._configuration === null) {
+      console.log("user extractor module configuration is null, setting defaults.");
+      this._configuration = Value.Default(userExtractorConfigurationType, {}) as UserExtractorConfiguration;
+    }
+  }
+
   get enabled(): boolean {
     console.log("user extractor module", JSON.stringify(this._configuration, null, 2));
     if (!Value.Check(userExtractorConfigurationType, this._configuration)) {
