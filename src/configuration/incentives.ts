@@ -22,24 +22,30 @@ export const incentivesConfigurationSchema = T.Object(
      * Reward token for ERC20 permits, default WXDAI for gnosis chain
      */
     erc20RewardToken: T.String({ default: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d" }),
-    incentives: T.Object(
-      {
-        /**
-         * Optionally specify a file to write the results in
-         */
-        file: T.Optional(T.String()),
-        /**
-         * If set to true, the plugin runs even if the price label is missing, and will evaluate comments.
-         */
-        requirePriceLabel: T.Boolean({ default: true }),
-        contentEvaluator: T.Union([contentEvaluatorConfigurationType, T.Null()], { default: null }),
-        userExtractor: T.Union([userExtractorConfigurationType, T.Null()], { default: null }),
-        dataPurge: T.Union([dataPurgeConfigurationType, T.Null()], { default: null }),
-        formattingEvaluator: T.Union([formattingEvaluatorConfigurationType, T.Null()], { default: null }),
-        permitGeneration: T.Union([permitGenerationConfigurationType, T.Null()], { default: null }),
-        githubComment: T.Union([githubCommentConfigurationType, T.Null()], { default: null }),
-      },
-      { default: {} }
+    incentives: T.Union(
+      [
+        T.Object(
+          {
+            /**
+             * Optionally specify a file to write the results in
+             */
+            file: T.Optional(T.String()),
+            /**
+             * If set to true, the plugin runs even if the price label is missing, and will evaluate comments.
+             */
+            requirePriceLabel: T.Boolean({ default: true }),
+            contentEvaluator: T.Union([contentEvaluatorConfigurationType, T.Null()], { default: null }),
+            userExtractor: T.Union([userExtractorConfigurationType, T.Null()], { default: null }),
+            dataPurge: T.Union([dataPurgeConfigurationType, T.Null()], { default: null }),
+            formattingEvaluator: T.Union([formattingEvaluatorConfigurationType, T.Null()], { default: null }),
+            permitGeneration: T.Union([permitGenerationConfigurationType, T.Null()], { default: null }),
+            githubComment: T.Union([githubCommentConfigurationType, T.Null()], { default: null }),
+          },
+          { default: {} }
+        ),
+        T.Null(),
+      ],
+      { default: null }
     ),
     dataCollection: dataCollectionConfigurationType,
   },
