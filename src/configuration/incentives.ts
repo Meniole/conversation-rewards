@@ -32,12 +32,12 @@ export const incentivesConfigurationSchema = T.Object(
          * If set to true, the plugin runs even if the price label is missing, and will evaluate comments.
          */
         requirePriceLabel: T.Boolean({ default: true }),
-        contentEvaluator: T.Optional(T.Union([contentEvaluatorConfigurationType, T.Null()])),
-        userExtractor: T.Optional(T.Union([userExtractorConfigurationType, T.Null()])),
-        dataPurge: T.Optional(T.Union([dataPurgeConfigurationType, T.Null()])),
-        formattingEvaluator: formattingEvaluatorConfigurationType,
-        permitGeneration: T.Optional(T.Union([permitGenerationConfigurationType, T.Null()])),
-        githubComment: githubCommentConfigurationType,
+        contentEvaluator: T.Union([contentEvaluatorConfigurationType, T.Null()], { default: null }),
+        userExtractor: T.Union([userExtractorConfigurationType, T.Null()], { default: null }),
+        dataPurge: T.Union([dataPurgeConfigurationType, T.Null()], { default: null }),
+        formattingEvaluator: T.Union([formattingEvaluatorConfigurationType, T.Null()], { default: null }),
+        permitGeneration: T.Union([permitGenerationConfigurationType, T.Null()], { default: null }),
+        githubComment: T.Union([githubCommentConfigurationType, T.Null()], { default: null }),
       },
       { default: {} }
     ),
