@@ -23,7 +23,8 @@ interface SortedTasks {
  * Posts a GitHub comment according to the given results.
  */
 export class GithubCommentModule implements Module {
-  private readonly _configuration: GithubCommentConfiguration | null = configuration.incentives.githubComment;
+  private readonly _configuration: GithubCommentConfiguration | undefined | null =
+    configuration.incentives?.githubComment;
   private readonly _debugFilePath = "./output.html";
   /**
    * COMMENT_ID can be set in the environment to reference the id of the last comment created during this workflow.
@@ -58,6 +59,7 @@ export class GithubCommentModule implements Module {
   }
 
   get enabled(): boolean {
+    console.log("Github comment module", JSON.stringify(this._configuration, null, 2));
     if (!Value.Check(githubCommentConfigurationType, this._configuration)) {
       logger.error("Invalid configuration detected for GithubContentModule, disabling.");
       return false;
